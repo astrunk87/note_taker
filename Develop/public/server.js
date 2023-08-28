@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const data = require('./db/notes.json')
+const data = require('./db/db.json')
 
 const app = express();
 const PORT = 3001;
@@ -17,15 +17,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
   });
   
-  app.get('/db', (req, res) => res.json(data));
+app.get('/db', (req, res) => res.json(data));
 
 
-app.get('/db', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/db/db.json'))
-);
-app.get('/paths', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/paths.html'))
-);
+
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
