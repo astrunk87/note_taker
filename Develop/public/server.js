@@ -19,7 +19,27 @@ app.get('/', (req, res) => {
   
 app.get('/db', (req, res) => res.json(data));
 
+app.post('/db', (req, res) => {
+    // Let the client know that their POST request was received
+    res.json(`${req.method} request received`);
+  
 
+    let response;
+
+    // Check if there is anything in the response body
+    if (req.body && req.body.product) {
+      response = {
+        status: 'success',
+        data: req.body,
+      };
+      res.status(201).json(response);
+    } else {
+      res.status(400).json('Request body must at least contain something');
+    }
+  
+    // Log the response body to the console
+    console.log(req.body);
+  });
 
 
 app.listen(PORT, () =>
