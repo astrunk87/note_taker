@@ -1,11 +1,17 @@
 const express = require('express');
 const path = require('path');
-const data = require('./db/db.json')
+const notes = require('./db/notes')
+const uuid = require('./db/uuid');
 
 const app = express();
 const PORT = 3001;
 
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, '/index.html'))
+);
 
 app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
 
@@ -13,37 +19,53 @@ app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
 //   res.sendFile(path.join(__dirname, 'public/db.json'))
 // );
 
-app.get('/', (req, res) => {
+app.get('/api/notes', (req, res) => res.json(notes));
+// ^ this brings back the db file in json
+
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
   });
   
-app.get('/db', (req, res) => res.json(data));
+app.get('/db', (req, res) => res.json(notes));
 
-app.post('/db', (req, res) => {
+
+app.post('/api/notes', (req, res) => {
     // Let the client know that their POST request was received
-    res.json(`${req.method} request received`);
-  
+    console.info(`${req.method} request received to add a review`);
 
-    let response;
+    const { title, text} = req.body;
 
-    // Check if there is anything in the response body
-    if (req.body && req.body.product) {
-      response = {
-        status: 'success',
-        data: req.body,
+    if (title && text) {
+      // Variable for the object we will save
+      const newNote = {
+        title,
+        text,
+        note_id: uuid(),
       };
+     
+  
+      const response = {
+        status: 'success',
+        body: newNote,
+      };
+  
+      console.log(response);
       res.status(201).json(response);
     } else {
-      res.status(400).json('Request body must at least contain something');
+      res.status(500).json('Error in posting note');
     }
-  
-    // Log the response body to the console
-    console.log(req.body);
   });
+
+  app.get('/api/notes', (req, res) => {
+    console.info(`GET /api/notes`);
+    res.status(200).db.json(data);
+  });
+
+  
 
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
 
-// ^pulled from student work
+
