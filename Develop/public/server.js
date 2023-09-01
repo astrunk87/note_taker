@@ -1,5 +1,5 @@
 const express = require('express');
-// const path = require('path');
+const path = require('path');
 const notes = require('./db/notes')
 const uuid = require('./db/uuid');
 
@@ -8,6 +8,7 @@ const PORT = 3001;
 
 app.use(express.json());
 // app.use(express.static('public'));
+// ^this caused all my post problems :(
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) =>
@@ -53,11 +54,11 @@ app.post('/api/notes', (req, res) => {
       status: 'success',
       data: req.body,
       title: req.body.title,
-      text: req.text
+      text: req.body.text
     };
-    res.json(`Review for ${response.title} has been added!`);
+    res.json(`Note for ${response.title} has been added!`);
   } else {
-    res.json('Request body must at least contain a product name');
+    res.json('Request body must at least contain note title');
   }
 
   // Log the response body to the console
