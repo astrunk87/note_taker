@@ -27,9 +27,9 @@ app.get('/notes', (req, res) =>
 
 app.get('/api/notes', (req, res) => {
 // ^ this brings back the db file in json
-console.info(`${req.method} request received to get reviews`);
+console.info(`${req.method} request received to get notes`);
 
-  // Sending all reviews to the client
+  // Sending all notes to the client
   return res.json(notes);
 });
 
@@ -45,11 +45,7 @@ app.get('/db', (req, res) => res.json(notes));
 app.post('/api/notes', (req, res) => {
     // Let the client know that their POST request was received
     console.info(`${req.method} request received to add a review`);
-    // res.json(`${req.method} request received to add a review`);
-
-  // // Log our request to the terminal
-  // console.info(`${req.method} request received to add a review`);
-
+    
   let response;
 
   // Check if there is anything in the response body
@@ -60,7 +56,7 @@ app.post('/api/notes', (req, res) => {
       title: req.body.title,
       text: req.body.text
     };
-    res.json(`Note for ${response.title} has been added!`);
+    res.json(`Note title:${response.title}. Note text:${response.text}`);
   } else {
     res.json('Request body must at least contain note title');
   }
