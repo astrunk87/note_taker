@@ -1,0 +1,17 @@
+[
+    {
+        "title": "payroll",
+        "text": "check everyones hours",
+        "note_id": "4d83"
+    },
+    {
+        "title": "bank",
+        "text": "deposit cash",
+        "note_id": "6a87"
+    },
+    {
+        "title": "store",
+        "text": "pickup supplies",
+        "note_id": "6006"
+    }
+]
