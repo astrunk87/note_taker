@@ -21,9 +21,12 @@ app.get('/notes', (req, res) =>
 
 // app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
 
-// app.get('/db', (req, res) =>
-//   res.sendFile(path.join(__dirname, 'public/db.json'))
-// );
+app.get('/db', (req, res) =>{
+console.info(`${req.method} request received to get notes`);
+
+// Sending all notes to the client
+return res.json(notes);
+});
 
 app.get('/api/notes', (req, res) => {
 // ^ this brings back the db file in json
@@ -36,9 +39,12 @@ console.info(`${req.method} request received to get notes`);
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
   });
-  // ^brings back html file when any unknown path is put in
+  // ^brings you to main page when any unknown path is put in
   
-app.get('/db', (req, res) => res.json(notes));
+// app.get('/db', (req, res) => {
+//   console.info(`${req.method} request received to get notes`);
+//   return res.json(notes)
+// });
 // ^brings back notes when db path is requested
 
 
