@@ -6,15 +6,13 @@ const uuid = () => {
 
 const notes = [
     {
-        title:'Test Title',
-        text:'Test text',
+        title:'bank',
+        text:'deposit cash',
         id: uuid()
     },
-
-
     {
-        title:'Test blue',
-        text:'Test red',
+        title:'store',
+        text:'pickup supplies',
         id: uuid()
     }
 ];
