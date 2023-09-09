@@ -36,7 +36,7 @@ readFromFile('./public/db/notes.json').then((data) => res.json(JSON.parse(data))
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, './public/index.html'));
   });
   // ^brings you to main page when any unknown path is put in
   
@@ -61,7 +61,7 @@ app.post('/api/notes', (req, res) => {
       note_id: uuid(),
     };
 
-    readAndAppend(newNote, './db/notes.json');   
+    readAndAppend(newNote, './public/db/notes.json');   
 
     const response = {
       status: 'success',

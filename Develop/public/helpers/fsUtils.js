@@ -1,3 +1,5 @@
+// all of this was grabbed from a in class activity
+
 const fs = require('fs');
 const util = require('util');
 
