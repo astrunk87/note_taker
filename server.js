@@ -39,11 +39,7 @@ app.get("*", (req, res) => {
 });
 // ^brings you to main page when any unknown path is put in
 
-// app.get('/db', (req, res) => {
-//   console.info(`${req.method} request received to get notes`);
-//   return res.json(notes)
-// });
-// ^brings back notes when db path is requested
+
 
 app.post("/api/notes", (req, res) => {
   // Let the client know that their POST request was received
@@ -57,7 +53,7 @@ app.post("/api/notes", (req, res) => {
       title,
       text,
       id: uuid.v4(),
-      // fixed with help form tutor, id didnt match what the front end was using
+      // fixed with help form tutor, id namedidnt match what the front end was using
     };
 
     readAndAppend(newNote, "./db/notes.json");
