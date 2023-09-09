@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
-const notes = require('./public/db/notes')
-const uuid = require('./public/helpers/uuid');
+const notes = require('./db/notes.json')
+const uuid = require('uuid');
 const fs = require('fs');
-const { readFromFile, readAndAppend } = require('./public/helpers/fsUtils');
+const { readFromFile, readAndAppend } = require('./helpers/fsUtils');
 
 const app = express();
 const PORT = process.env.PORT || 3001
@@ -31,7 +31,7 @@ return res.json(notes);
 app.get('/api/notes', (req, res) => {
 // ^ this brings back the db file in json
 console.info(`${req.method} request received to get notes`);
-readFromFile('./public/db/notes.json').then((data) => res.json(JSON.parse(data)));
+readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 
 });
 
@@ -58,10 +58,10 @@ app.post('/api/notes', (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuid(),
+      id: uuid.v4(),
     };
 
-    readAndAppend(newNote, './public/db/notes.json');   
+    readAndAppend(newNote, './db/notes.json');   
 
     const response = {
       status: 'success',
