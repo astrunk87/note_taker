@@ -57,6 +57,7 @@ app.post("/api/notes", (req, res) => {
       title,
       text,
       id: uuid.v4(),
+      // fixed with help form tutor, id didnt match what the front end was using
     };
 
     readAndAppend(newNote, "./db/notes.json");
